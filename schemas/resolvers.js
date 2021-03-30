@@ -77,6 +77,33 @@ const resolvers = {
       }
       throw new AuthenticationError('you need to be logged in for that');
     },
+    addReaction: async (parent, { thoughtId, reactionBody }, context) => {
+      if (context.user) {
+        const updatedThought = await Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          {
+            $push: {
+              reactions: { reactionBody, username: context.user.username },
+            },
+          },
+          { new: true, runValidators: true }
+        );
+        return updatedThought;
+      }
+      throw new AuthenticationError('you need to be logged in for that');
+    },
+    addFriend: async (parent, { friendId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { friends: friendId } },
+          { new: true }
+        ).populate('friends');
+
+        return updatedUser;
+      }
+      throw new AuthenticationError('you neeed to be logged in for that');
+    },
   },
 };
 
