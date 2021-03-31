@@ -1,0 +1,22 @@
+{
+  "name": "deep-thoughts",
+  "version": "1.0.0",
+  "description": "social network site",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niles87/thoughts.git"
+  },
+  "keywords": [
+    "social"
+  ],
+  "author": "niles87",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niles87/thoughts/issues"
+  },
+  "homepage": "https://github.com/niles87/thoughts#readme"
+}
