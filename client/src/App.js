@@ -11,7 +11,17 @@ import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 
-const client = new ApolloClient({ uri: '/graphql' });
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = sessionStorage.getItem('id');
+    operation.setContext({
+      headers: {
+        authoriztion: token ? `Bearer ${token}` : '',
+      },
+    });
+  },
+  uri: '/graphql',
+});
 
 function App() {
   return (
