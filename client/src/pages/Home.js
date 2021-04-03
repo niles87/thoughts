@@ -9,7 +9,9 @@ const Home = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   const { data: userData } = useQuery(QUERY_ME_BASIC);
   const thoughts = data?.thoughts || [];
+  const userInfo = userData?.me || {};
   const loggedIn = Auth.loggedIn();
+  console.log(userInfo);
   return (
     <main>
       <div className='flex-row justify-space-between'>
@@ -22,15 +24,17 @@ const Home = () => {
               title='Some Feed for Thought(s)...'
             />
           )}
-          {loggedIn && userData ? (
+          {loggedIn && userInfo ? (
             <div className='col-12 col-lg-3 mb-3'>
               <FriendsList
-                username={userData.me.username}
-                friendCount={userData.me.friendCount}
-                friends={userData.me.friends}
+                username={userInfo.username}
+                friendCount={userInfo.friendCount}
+                friends={userInfo.friends}
               />
             </div>
-          ) : null}
+          ) : (
+            <div>loading</div>
+          )}
         </div>
       </div>
     </main>
