@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import { client } from './utils/apollo';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -10,18 +10,6 @@ import NoMatch from './pages/NoMatch';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
-
-const client = new ApolloClient({
-  request: (operation) => {
-    const token = sessionStorage.getItem('id');
-    operation.setContext({
-      headers: {
-        authoriztion: token ? `Bearer ${token}` : '',
-      },
-    });
-  },
-  uri: '/graphql',
-});
 
 function App() {
   return (
